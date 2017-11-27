@@ -16,11 +16,11 @@ import { mailFolderListItems } from "./tileData";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import Player from "./Player";
+import SongsList from "./SongsList";
 
 const drawerWidth = 240;
 
 const Content = styled.div`
-  width: 100%;
   height: 100%;
   padding: 24px;
 `;
@@ -113,9 +113,7 @@ class PermanentDrawer extends React.Component {
           {drawer}
           <main className={classes.content}>
             <Content>
-              <Typography type="body1">
-                {"You think water moves fast? You should see ice."}
-              </Typography>
+              <SongsList />
             </Content>
             <Player
               name="J'arrive en retard"
