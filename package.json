@@ -3,17 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "lodash": "^4.17.4",
     "hoist-non-react-statics": "^2.3.1",
+    "lodash": "^4.17.4",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "soundcloud": "^3.3.0",
     "react-soundplayer": "^1.0.3",
+    "request-promise": "^4.2.2",
+    "soundcloud": "^3.3.0",
     "styled-components": "^2.2.3",
-    "typeface-roboto": "^0.0.45"
+    "typeface-roboto": "^0.0.45",
+    "uniqid": "^4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -6,7 +6,7 @@ import { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import PlayListIcon from "material-ui-icons/PlaylistPlay";
 
 const playlists = ["Indie", "Blogged 50", "Electro", "Cool Playlist", "Upbeat"];
-export const mailFolderListItems = (
+export const userLists = (
   <div>
     {playlists.map(playlistName => (
       <ListItem button>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import AppBar from "./Components/AppBar";
+import SeamlessPlayer from "./SeamlessPlayer";
 import teal from "material-ui/colors/teal";
 
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
@@ -17,7 +16,7 @@ class App extends Component {
     return (
       <ThemeProvider theme={{ primary: "#009688" }}>
         <MuiThemeProvider theme={theme}>
-          <AppBar />
+          <SeamlessPlayer />
         </MuiThemeProvider>
       </ThemeProvider>
     );

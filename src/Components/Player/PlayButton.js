@@ -14,15 +14,27 @@ class PlayButton extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.url !== this.props.url) {
+      this.play();
+    }
+  }
+
+  play = () => {
+    const { soundCloudAudio, url } = this.props;
+    soundCloudAudio &&
+      soundCloudAudio.play({
+        streamUrl: url,
+        playlistIndex: soundCloudAudio._playlistIndex
+      });
+    this.setState({ playing: true });
+  };
+
   onClick = e => {
-    const { playing, soundCloudAudio, onTogglePlay } = this.props;
+    const { playing, soundCloudAudio, onTogglePlay, url } = this.props;
 
     if (!playing) {
-      soundCloudAudio &&
-        soundCloudAudio.play({
-          playlistIndex: soundCloudAudio._playlistIndex
-        });
-      this.setState({ playing: true });
+      this.play();
     } else {
       soundCloudAudio && soundCloudAudio.pause();
       this.setState({ playing: false });

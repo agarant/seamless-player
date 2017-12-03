@@ -70,7 +70,8 @@ class Row extends React.Component {
   };
 
   rowClicked = () => {
-    console.log(this.props.id);
+    console.log(this.props);
+    this.props.playSong(this.props);
   };
 
   renderButtons() {
@@ -111,7 +112,12 @@ class Row extends React.Component {
   render() {
     const { id, name, artist, album, hovered } = this.props;
     return (
-      <MyTableRow key={id} hover={true} {...this.props}>
+      <MyTableRow
+        key={id}
+        hover={true}
+        {...this.props}
+        onClick={this.rowClicked}
+      >
         <TableCell>{name}</TableCell>
         <TableCell>{artist}</TableCell>
         <TableCell>{album}</TableCell>
@@ -131,7 +137,7 @@ class SongsList extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, playSong } = this.props;
 
     return (
       <Paper className={classes.root}>
@@ -143,7 +149,9 @@ class SongsList extends React.Component {
               <TableCell>Album</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>{data.map(n => <HoverRow {...n} />)}</TableBody>
+          <TableBody>
+            {this.props.songs.map(n => <HoverRow {...n} playSong={playSong} />)}
+          </TableBody>
         </Table>
       </Paper>
     );

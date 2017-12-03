@@ -34,7 +34,8 @@ class Player extends React.Component {
   }
 
   render() {
-    const { currentTime, duration, name, artist, album } = this.props;
+    const { id, currentTime, duration, name, artist, album } = this.props;
+    console.log(this.props);
     return (
       <PlayerBox>
         <Title name={name} artist={artist} album={album} />
@@ -54,11 +55,4 @@ class Player extends React.Component {
   }
 }
 
-const Playera = withTheme(withCustomAudio(Player));
-
-export default props => (
-  <Playera
-    {...props}
-    streamUrl="http://www.nihilus.net/soundtracks/Static%20Memories.mp3"
-  />
-);
+export default withTheme(withCustomAudio(Player));

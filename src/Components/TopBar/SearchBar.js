@@ -7,7 +7,7 @@ const handleEnter = fn => target => {
 };
 
 const SearchBox = styled.div`
-  max-width: 800px;
+  max-width: 600px;
   background-color: #f5f5f5;
   flex: 1;
   display: flex;
@@ -48,7 +48,7 @@ class SearchBar extends React.Component {
     });
 
   onSubmit = () => {
-    console.log("SUBMITING QUERY", this.state.query);
+    this.props.search(this.state.query);
   };
 
   render() {
