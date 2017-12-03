@@ -15,8 +15,14 @@ const apiList = {
   [API_LIST.SOUNDCLOUD]: soundcloud
 };
 
-const playlists = {};
+const PLAYLISTS = "playlists";
+
+if (!window.localStorage) {
+  window.localStorage = {};
+}
+
 let api = soundcloud;
+window.localStorage.playlists = {};
 
 /**
  * Set the current API used to search song
@@ -32,7 +38,6 @@ function setApi(configApi) {
  * @returns {array of Song objects}
  */
 function search(query) {
-  console.log(api);
   return api(query);
 }
 
@@ -41,7 +46,7 @@ function search(query) {
  * @returns {array of Playlist objects}
  */
 function getPlaylists() {
-  return playlists;
+  return window.localStorage.playlists;
 }
 
 /**
@@ -51,12 +56,20 @@ function getPlaylists() {
 function createPlaylist(name) {
   const id = uniqId();
   const newPlaylist = { name, id, songs: [] };
+  const playlists = getPlaylists();
   playlists[id] = newPlaylist;
+  window.localStorage.playlists = playlists;
   return newPlaylist;
 }
 
+/**
+ * Delete a playlist
+ * @param id
+ */
 function deletePlaylist(id) {
+  const playlists = getPlaylists();
   delete playlists[id];
+  window.localStorage.playlists = playlists;
 }
 
 /**
@@ -64,7 +77,9 @@ function deletePlaylist(id) {
  * @param {Song} song
  */
 function addToPlaylist(playlistId, song) {
+  const playlists = getPlaylists();
   playlists[playlistId].songs.push(song);
+  window.localStorage.playlists = playlists;
 }
 
 /**
@@ -72,9 +87,11 @@ function addToPlaylist(playlistId, song) {
  * @param {*} songId : the song that should be removed from the playlist
  */
 function removeFromPlaylist(playlistId, songId) {
+  const playlists = getPlaylists();
   playlists[playlistId].songs = playlists[playlistId].songs.filter(
     song => song.id !== songId
   );
+  window.localStorage.playlists = playlists;
 }
 
 export default {
