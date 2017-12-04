@@ -5,6 +5,8 @@ import SongsList from "./Components/SongsList";
 import TopBar from "./Components/TopBar";
 import Drawer from "./Components/Drawer";
 import PlayListManager from "./utils/playlistManager";
+import Snackbar from "./Components/Snackbar";
+import Typography from "material-ui/Typography";
 
 const drawerWidth = 240;
 
@@ -41,34 +43,86 @@ class SeamlessPlayer extends React.Component {
     super(props);
 
     this.state = {
-      searchResults: []
+      searchResults: [],
+      playlists: PlayListManager.getPlaylists(),
+      snackbarOpen: false,
+      playlistName: ""
     };
   }
 
   search = query => {
     PlayListManager.search(query).then(songs => {
       this.setState({
-        searchResults: songs
+        searchResults: songs,
+        playlistName: ""
       });
     });
   };
 
   playSong = song => {
-    console.log("PLAYER", this.player);
+    console.log("SONG", song);
     this.setState({ song });
   };
+
+  selectPlaylist = id => {
+    this.setState({
+      searchResults: this.state.playlists[id].songs,
+      playlistName: this.state.playlists[id].name
+    });
+  };
+
+  createPlaylist = name => {
+    PlayListManager.createPlaylist(name);
+    this._refreshPlaylists();
+  };
+
+  addToPlaylist = (id, song) => {
+    PlayListManager.addToPlaylist(id, song);
+    this.setState({
+      snackbarOpen: true
+    });
+    setTimeout(() => {
+      this.setState({
+        snackbarOpen: false
+      });
+    }, 3000);
+    this._refreshPlaylists();
+  };
+
+  _refreshPlaylists = () =>
+    this.setState({
+      playlists: PlayListManager.getPlaylists()
+    });
 
   render() {
     return (
       <Root>
         <AppFrame>
           <TopBar search={this.search} />
-          <Drawer />
+          <Drawer
+            createPlaylist={this.createPlaylist}
+            selectPlaylist={this.selectPlaylist}
+            playlists={this.state.playlists}
+          />
           <Main>
             <Content>
+              {!this.state.playlistName ? null : (
+                <Typography
+                  type="display2"
+                  style={{
+                    color: "rgba(0, 0, 0, 0.87)",
+                    margin: "64px 0 40px 0"
+                  }}
+                >
+                  {" "}
+                  {this.state.playlistName}
+                </Typography>
+              )}
               <SongsList
                 songs={this.state.searchResults}
-                playSong={this.playSong}
+                playsong={this.playSong}
+                playlists={this.state.playlists}
+                addToPlaylist={this.addToPlaylist}
               />
             </Content>
             <Player
@@ -79,6 +133,7 @@ class SeamlessPlayer extends React.Component {
             />
           </Main>
         </AppFrame>
+        <Snackbar open={this.state.snackbarOpen} />
       </Root>
     );
   }

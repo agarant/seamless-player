@@ -2,19 +2,20 @@
 // This file is shared across the demos.
 
 import React from "react";
-import { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
+import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
 import PlayListIcon from "material-ui-icons/PlaylistPlay";
 
-const playlists = ["Indie", "Blogged 50", "Electro", "Cool Playlist", "Upbeat"];
-export const userLists = (
-  <div>
-    {playlists.map(playlistName => (
-      <ListItem button>
-        <ListItemIcon>
-          <PlayListIcon />
-        </ListItemIcon>
-        <ListItemText primary={playlistName} />
-      </ListItem>
-    ))}
-  </div>
+export default ({ playlists, selectPlaylist }) => (
+  <List>
+    <div>
+      {Object.keys(playlists).map(key => (
+        <ListItem button onClick={() => selectPlaylist(key)}>
+          <ListItemIcon>
+            <PlayListIcon />
+          </ListItemIcon>
+          <ListItemText primary={playlists[key].name} />
+        </ListItem>
+      ))}
+    </div>
+  </List>
 );

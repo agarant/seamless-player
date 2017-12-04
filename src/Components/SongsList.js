@@ -14,8 +14,6 @@ import PlaylistAdd from "material-ui-icons/PlaylistAdd";
 import IconButton from "material-ui/IconButton";
 import Menu, { MenuItem } from "material-ui/Menu";
 
-const options = ["Indie", "Blogged 50", "Electro", "Cool Playlist", "Upbeat"];
-
 const styles = theme => ({
   root: {
     width: "100%",
@@ -62,6 +60,7 @@ class Row extends React.Component {
   };
 
   addToPlaylistClicked = event => {
+    event.stopPropagation();
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -70,14 +69,19 @@ class Row extends React.Component {
   };
 
   rowClicked = () => {
-    console.log(this.props);
-    this.props.playSong(this.props);
+    this.props.playsong(this.props.song);
   };
 
-  renderButtons() {
+  addToPlayList = id => () => {
+    this.props.addToPlaylist(id, this.props.song);
+    this.handleRequestClose();
+  };
+
+  renderButtons = () => {
     if (!this.props.hovered) return null;
     const open = Boolean(this.state.anchorEl);
 
+    const { playlists } = this.props;
     return (
       <ButtonBox>
         <IconButton onClick={this.addToPlaylistClicked}>
@@ -95,22 +99,22 @@ class Row extends React.Component {
             }
           }}
         >
-          {options.map(option => (
+          {Object.keys(playlists).map(key => (
             <MenuItem
-              key={option}
-              selected={option === "Pyxis"}
-              onClick={this.handleRequestClose}
+              key={playlists[key].id}
+              onClick={this.addToPlayList(playlists[key].id)}
             >
-              {option}
+              {playlists[key].name}
             </MenuItem>
           ))}
         </Menu>
       </ButtonBox>
     );
-  }
+  };
 
   render() {
-    const { id, name, artist, album, hovered } = this.props;
+    const { id, name, artist, album, artwork } = this.props.song;
+    const { hovered } = this.props;
     return (
       <MyTableRow
         key={id}
@@ -118,7 +122,15 @@ class Row extends React.Component {
         {...this.props}
         onClick={this.rowClicked}
       >
-        <TableCell>{name}</TableCell>
+        <TableCell style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={artwork}
+            height={36}
+            width={36}
+            style={{ marginRight: 10 }}
+          />
+          {name}
+        </TableCell>
         <TableCell>{artist}</TableCell>
         <TableCell>{album}</TableCell>
         <TableCell style={{ position: "relative" }}>
@@ -137,7 +149,7 @@ class SongsList extends React.Component {
   }
 
   render() {
-    const { classes, playSong } = this.props;
+    const { classes, playsong, playlists, addToPlaylist } = this.props;
 
     return (
       <Paper className={classes.root}>
@@ -150,7 +162,14 @@ class SongsList extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.props.songs.map(n => <HoverRow {...n} playSong={playSong} />)}
+            {this.props.songs.map(n => (
+              <HoverRow
+                song={n}
+                playsong={playsong}
+                playlists={playlists}
+                addToPlaylist={addToPlaylist}
+              />
+            ))}
           </TableBody>
         </Table>
       </Paper>
