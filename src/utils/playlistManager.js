@@ -2,7 +2,7 @@ import spotify from "./spotify";
 import jamendo from "./jamendo";
 import soundcloud from "./soundcloud";
 import uniqId from "uniqid";
-import { get, put, remove } from "./storage";
+import storage from "./storage";
 
 export const API_LIST = {
   SPOTIFY: "spotify",
@@ -17,8 +17,11 @@ const apiList = {
 };
 
 const PLAYLISTS = "playlists";
+let playlists = {};
 
-const playlists = get(PLAYLISTS) ? JSON.parse(get(PLAYLISTS)) : {};
+function init() {
+  playlists = storage.get(PLAYLISTS) ? JSON.parse(storage.get(PLAYLISTS)) : {};
+}
 
 let api = soundcloud;
 
@@ -89,7 +92,7 @@ function removeFromPlaylist(playlistId, songId) {
 }
 
 function _refreshStorage() {
-  put(PLAYLISTS, JSON.stringify(playlists));
+  storage.put(PLAYLISTS, JSON.stringify(playlists));
 }
 
 export default {
@@ -99,5 +102,6 @@ export default {
   createPlaylist,
   addToPlaylist,
   removeFromPlaylist,
-  deletePlaylist
+  deletePlaylist,
+  init
 };

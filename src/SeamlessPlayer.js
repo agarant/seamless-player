@@ -38,6 +38,7 @@ const Content = styled.div`
 
 class SeamlessPlayer extends React.Component {
   constructor(props) {
+    PlayListManager.init();
     super(props);
 
     this.state = {
