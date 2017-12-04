@@ -1,9 +1,7 @@
 import React from "react";
 import Drawer from "material-ui/Drawer";
 import Divider from "material-ui/Divider";
-import List from "material-ui/List";
 import Playlists from "./Playlists";
-import styled from "styled-components";
 import { withStyles } from "material-ui/styles";
 import DrawerHeader from "./DrawerHeader";
 

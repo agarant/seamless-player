@@ -1,28 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
-import Table, {
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from "material-ui/Table";
-import Paper from "material-ui/Paper";
-import { HoverHOC } from "../utils";
+import { TableCell, TableRow } from "material-ui/Table";
+import { HoverHOC } from "../../utils";
 import styled from "styled-components";
 import PlaylistAdd from "material-ui-icons/PlaylistAdd";
 import IconButton from "material-ui/IconButton";
 import Menu, { MenuItem } from "material-ui/Menu";
 
-const styles = theme => ({
-  root: {
-    width: "100%",
-    overflowX: "auto"
-  },
-  table: {
-    minWidth: 700
+const MyTableRow = styled(TableRow)`
+  &:hover {
+    cursor: pointer;
   }
-});
+`;
 
 const ButtonBox = styled.td`
   position: absolute;
@@ -34,11 +22,6 @@ const ButtonBox = styled.td`
   margin-right: 25px;
 `;
 
-const MyTableRow = styled(TableRow)`
-  &:hover {
-    cursor: pointer;
-  }
-`;
 const ITEM_HEIGHT = 48;
 
 class Row extends React.Component {
@@ -65,7 +48,7 @@ class Row extends React.Component {
     this.handleRequestClose();
   };
 
-  renderButtons = () => {
+  renderAddButton = () => {
     if (!this.props.hovered) return null;
     const open = Boolean(this.state.anchorEl);
 
@@ -102,7 +85,7 @@ class Row extends React.Component {
 
   render() {
     const { id, name, artist, album, artwork } = this.props.song;
-    const { hovered } = this.props;
+
     return (
       <MyTableRow
         key={id}
@@ -116,53 +99,18 @@ class Row extends React.Component {
             height={36}
             width={36}
             style={{ marginRight: 10 }}
+            alt="artwork"
           />
           {name}
         </TableCell>
         <TableCell>{artist}</TableCell>
         <TableCell>{album}</TableCell>
         <TableCell style={{ position: "relative" }}>
-          {this.renderButtons()}
+          {this.renderAddButton()}
         </TableCell>
       </MyTableRow>
     );
   }
 }
 
-const HoverRow = HoverHOC(Row);
-
-class SongsList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { classes, playsong, playlists, addToPlaylist } = this.props;
-
-    return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Artist</TableCell>
-              <TableCell>Album</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.props.songs.map(n => (
-              <HoverRow
-                song={n}
-                playsong={playsong}
-                playlists={playlists}
-                addToPlaylist={addToPlaylist}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
-    );
-  }
-}
-
-export default withStyles(styles)(SongsList);
+export default HoverHOC(Row);

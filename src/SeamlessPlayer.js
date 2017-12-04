@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Player from "./Components/Player";
-import SongsList from "./Components/SongsList";
+import SongsTable from "./Components/SongsTable";
 import TopBar from "./Components/TopBar";
 import Drawer from "./Components/Drawer";
 import PlayListManager from "./utils/playlistManager";
 import Snackbar from "./Components/Snackbar";
 import Typography from "material-ui/Typography";
-
-const drawerWidth = 240;
 
 const Root = styled.div`
   width: 100%;
@@ -75,7 +73,6 @@ class SeamlessPlayer extends React.Component {
       return acc;
     }, []);
 
-    console.log(songs);
     this.setState({
       songs
     });
@@ -135,7 +132,7 @@ class SeamlessPlayer extends React.Component {
                   {this.state.playlists[this.state.playlistId].name}
                 </Typography>
               )}
-              <SongsList
+              <SongsTable
                 songs={this.state.searchResults}
                 playsong={this.playSong}
                 playlists={this.state.playlists}

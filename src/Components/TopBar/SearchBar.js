@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SearchIcon from "material-ui-icons/Search";
 
 const handleEnter = fn => target => {
-  if (target.charCode == 13) fn();
+  if (target.charCode === 13) fn();
 };
 
 const SearchBox = styled.div`

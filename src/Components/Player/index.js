@@ -105,8 +105,6 @@ class Player extends React.Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log(this.props);
     return (
       <PlayerBox>
         {!this.state.song ? null : (
@@ -115,8 +113,10 @@ class Player extends React.Component {
             height={90}
             width={90}
             style={{ backgroundColor: "#fafafa" }}
+            alt="player artwork"
           />
         )}
+
         {!this.state.song ? null : (
           <Title
             name={this.state.song.name}

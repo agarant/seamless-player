@@ -9,19 +9,8 @@ const Button = styled(IconButton)`
   font-size: 18px;
 `;
 
-class NextButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { onClick, disabled } = this.props;
-    return (
-      <Button onClick={this.props.onClick} disabled={this.props.disabled}>
-        <NextIcon />
-      </Button>
-    );
-  }
-}
-
-export default NextButton;
+export default ({ onClick, disabled }) => (
+  <Button onClick={onClick} disabled={disabled}>
+    <NextIcon />
+  </Button>
+);

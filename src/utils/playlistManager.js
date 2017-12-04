@@ -32,7 +32,6 @@ function setApi(configApi) {
  * @returns {array of Song objects}
  */
 function search(query) {
-  console.log(api);
   return api(query);
 }
 

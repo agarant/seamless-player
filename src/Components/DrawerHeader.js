@@ -4,7 +4,6 @@ import TextField from "material-ui/TextField";
 import Dialog, {
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle
 } from "material-ui/Dialog";
 import IconButton from "material-ui/IconButton";
@@ -81,7 +80,7 @@ export default class DrawerHeader extends React.Component {
             <Button
               onClick={this.savePlaylist}
               color="primary"
-              disabled={this.state.name.trim() == ""}
+              disabled={this.state.name.trim() === ""}
             >
               Create Playlist
             </Button>
