@@ -1,5 +1,6 @@
 import playlistManager from "./playlistManager.js";
-import storage from "./storage";
+import storage from "./../../utils/storage";
+import spotify from "./../api/spotify";
 
 let mockStorage = "{}";
 
@@ -35,4 +36,10 @@ it("add a song to a playlist", () => {
   playlistManager.addToPlaylist(playlist.id, song);
   const playlists = playlistManager.getPlaylists();
   expect(playlists[playlist.id].songs[0].name).toBe("something");
+});
+
+it("should be able to set the api to use", () => {
+  playlistManager.setApi("spotify");
+  const api = playlistManager.getCurrentApi();
+  expect(api).toBe(spotify);
 });

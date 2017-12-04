@@ -4,7 +4,7 @@ import Player from "./Components/Player";
 import SongsTable from "./Components/SongsTable";
 import TopBar from "./Components/TopBar";
 import Drawer from "./Components/Drawer";
-import PlayListManager from "./utils/playlistManager";
+import PlayListManager from "./services/playListManager/playlistManager";
 import Snackbar from "./Components/Snackbar";
 import Typography from "material-ui/Typography";
 

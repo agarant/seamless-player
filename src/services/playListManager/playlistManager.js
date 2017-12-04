@@ -1,8 +1,8 @@
-import spotify from "./spotify";
-import jamendo from "./jamendo";
-import soundcloud from "./soundcloud";
+import spotify from "./../api/spotify";
+import jamendo from "./../api/jamendo";
+import soundcloud from "./../api/soundcloud";
 import uniqId from "uniqid";
-import storage from "./storage";
+import storage from "./../../utils/storage";
 
 export const API_LIST = {
   SPOTIFY: "spotify",
@@ -31,6 +31,10 @@ let api = soundcloud;
  */
 function setApi(configApi) {
   api = apiList[configApi];
+}
+
+function getCurrentApi() {
+  return api;
 }
 
 /**
@@ -63,31 +67,11 @@ function createPlaylist(name) {
 }
 
 /**
- * Delete a playlist
- * @param id
- */
-function deletePlaylist(id) {
-  delete playlists[id];
-  _refreshStorage();
-}
-
-/**
  * @param {*} playlistId
  * @param {Song} song
  */
 function addToPlaylist(playlistId, song) {
   playlists[playlistId].songs.push(song);
-  _refreshStorage();
-}
-
-/**
- * @param {*} playlistId
- * @param {*} songId : the song that should be removed from the playlist
- */
-function removeFromPlaylist(playlistId, songId) {
-  playlists[playlistId].songs = playlists[playlistId].songs.filter(
-    song => song.id !== songId
-  );
   _refreshStorage();
 }
 
@@ -101,7 +85,6 @@ export default {
   getPlaylists,
   createPlaylist,
   addToPlaylist,
-  removeFromPlaylist,
-  deletePlaylist,
-  init
+  init,
+  getCurrentApi
 };

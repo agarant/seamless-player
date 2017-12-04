@@ -1,7 +1,9 @@
 import React from "react";
 import Button from "material-ui/Button";
 import Menu, { MenuItem } from "material-ui/Menu";
-import PlaylistManager, { API_LIST } from "../../utils/playlistManager";
+import PlaylistManager, {
+  API_LIST
+} from "../../services/playListManager/playlistManager";
 
 class ApiPicker extends React.Component {
   constructor(props) {
