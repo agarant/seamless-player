@@ -6,7 +6,7 @@ export default ({ playlists, selectPlaylist }) => (
   <List>
     <div>
       {Object.keys(playlists).map(key => (
-        <ListItem button onClick={() => selectPlaylist(key)}>
+        <ListItem key={key} button onClick={() => selectPlaylist(key)}>
           <ListItemIcon>
             <PlayListIcon />
           </ListItemIcon>
