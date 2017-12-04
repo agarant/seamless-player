@@ -14,43 +14,15 @@ class PlayButton extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.url !== this.props.url) {
-      this.play();
-    }
-  }
-
-  play = () => {
-    const { soundCloudAudio, url } = this.props;
-    soundCloudAudio &&
-      soundCloudAudio.play({
-        streamUrl: url,
-        playlistIndex: soundCloudAudio._playlistIndex
-      });
-    this.setState({ playing: true });
-  };
-
-  onClick = e => {
-    const { playing, soundCloudAudio, onTogglePlay, url } = this.props;
-
-    if (!playing) {
-      this.play();
-    } else {
-      soundCloudAudio && soundCloudAudio.pause();
-      this.setState({ playing: false });
-    }
-
-    onTogglePlay && onTogglePlay(e);
-  };
-
   render() {
     return (
       <IconButton
-        onClick={this.onClick}
+        onClick={this.props.onClick}
         color="primary"
         style={{ transform: "scale(2.3)" }}
+        disabled={this.props.disabled}
       >
-        {this.state.playing ? <PauseIcon /> : <PlayIcon />}
+        {this.props.playing ? <PauseIcon /> : <PlayIcon />}
       </IconButton>
     );
   }

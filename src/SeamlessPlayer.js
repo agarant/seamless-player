@@ -46,7 +46,7 @@ class SeamlessPlayer extends React.Component {
       searchResults: [],
       playlists: PlayListManager.getPlaylists(),
       snackbarOpen: false,
-      playlistName: ""
+      playlistId: null
     };
   }
 
@@ -54,20 +54,37 @@ class SeamlessPlayer extends React.Component {
     PlayListManager.search(query).then(songs => {
       this.setState({
         searchResults: songs,
-        playlistName: ""
+        playlistId: null
       });
     });
   };
 
   playSong = song => {
-    console.log("SONG", song);
-    this.setState({ song });
+    const sourceSongs = this.state.playlistId
+      ? this.state.playlists[this.state.playlistId].songs
+      : this.state.searchResults;
+
+    let found = false;
+    const songs = sourceSongs.reduce((acc, s) => {
+      if (s.id === song.id) {
+        found = true;
+      }
+      if (found) {
+        acc.push(s);
+      }
+      return acc;
+    }, []);
+
+    console.log(songs);
+    this.setState({
+      songs
+    });
   };
 
   selectPlaylist = id => {
     this.setState({
       searchResults: this.state.playlists[id].songs,
-      playlistName: this.state.playlists[id].name
+      playlistId: id
     });
   };
 
@@ -106,7 +123,7 @@ class SeamlessPlayer extends React.Component {
           />
           <Main>
             <Content>
-              {!this.state.playlistName ? null : (
+              {!this.state.playlistId ? null : (
                 <Typography
                   type="display2"
                   style={{
@@ -115,7 +132,7 @@ class SeamlessPlayer extends React.Component {
                   }}
                 >
                   {" "}
-                  {this.state.playlistName}
+                  {this.state.playlists[this.state.playlistId].name}
                 </Typography>
               )}
               <SongsList
@@ -130,6 +147,8 @@ class SeamlessPlayer extends React.Component {
               {...this.state.song}
               preload="none"
               streamUrl={this.state.song ? this.state.song.url : ""}
+              playSongs={this.playSongs}
+              songs={this.state.songs}
             />
           </Main>
         </AppFrame>

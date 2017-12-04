@@ -13,19 +13,11 @@ class NextButton extends React.Component {
   constructor(props) {
     super(props);
   }
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  onClick = e => {
-    const { soundCloudAudio } = this.props;
-
-    soundCloudAudio && soundCloudAudio.next();
-  };
 
   render() {
+    const { onClick, disabled } = this.props;
     return (
-      <Button onClick={this.onClick}>
+      <Button onClick={this.props.onClick} disabled={this.props.disabled}>
         <NextIcon />
       </Button>
     );

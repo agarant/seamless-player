@@ -14,19 +14,10 @@ class PrevButton extends React.Component {
   constructor(props) {
     super(props);
   }
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  onClick = e => {
-    const { soundCloudAudio } = this.props;
-
-    soundCloudAudio && soundCloudAudio.previous();
-  };
 
   render() {
     return (
-      <Button onClick={this.onClick}>
+      <Button onClick={this.props.onClick} disabled={this.props.disabled}>
         <PrevIcon />
       </Button>
     );
