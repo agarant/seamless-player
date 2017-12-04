@@ -31,6 +31,7 @@ export default ({ songs, playsong, playlists, addToPlaylist }) => (
       <TableBody>
         {songs.map(n => (
           <Row
+            key={n.id}
             song={n}
             playsong={playsong}
             playlists={playlists}

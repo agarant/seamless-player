@@ -84,15 +84,10 @@ class Row extends React.Component {
   };
 
   render() {
-    const { id, name, artist, album, artwork } = this.props.song;
+    const { name, artist, album, artwork } = this.props.song;
 
     return (
-      <MyTableRow
-        key={id}
-        hover={true}
-        {...this.props}
-        onClick={this.rowClicked}
-      >
+      <MyTableRow hover={true} {...this.props} onClick={this.rowClicked}>
         <TableCell style={{ display: "flex", alignItems: "center" }}>
           <img
             src={artwork}
