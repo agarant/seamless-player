@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Row /> renders properly 1`] = `
+<tr
+  className="MuiTableRow-root-1 sc-bdVaJa irEbJS"
+  hovered={false}
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  playlists={Object {}}
+  song={
+    Object {
+      "album": "TMRW",
+      "artist": "Luke Christopher",
+      "artwork": "mockUrl",
+      "id": "1234",
+      "name": "Atlas",
+      "url": "mockOtherUrl",
+    }
+  }
+>
+  <td
+    className="MuiTableCell-root-6 MuiTableCell-paddingDefault-9"
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+      }
+    }
+  >
+    <img
+      alt="artwork"
+      height={36}
+      src="mockUrl"
+      style={
+        Object {
+          "marginRight": 10,
+        }
+      }
+      width={36}
+    />
+    Atlas
+  </td>
+  <td
+    className="MuiTableCell-root-6 MuiTableCell-paddingDefault-9"
+  >
+    Luke Christopher
+  </td>
+  <td
+    className="MuiTableCell-root-6 MuiTableCell-paddingDefault-9"
+  >
+    TMRW
+  </td>
+  <td
+    className="MuiTableCell-root-6 MuiTableCell-paddingDefault-9"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  />
+</tr>
+`;

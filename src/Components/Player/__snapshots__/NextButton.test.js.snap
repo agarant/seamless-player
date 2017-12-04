@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NextButton /> renders the proper icon when playing 1`] = `
+<button
+  className="MuiButtonBase-root-10 MuiIconButton-root-1 sc-bdVaJa ikOtYg"
+  disabled={false}
+  onBlur={[Function]}
+  onClick={undefined}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+>
+  <span
+    className="MuiIconButton-label-7"
+  >
+    <svg
+      aria-hidden="true"
+      className="MuiSvgIcon-root-12 MuiIconButton-icon-8"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"
+      />
+    </svg>
+  </span>
+  <span
+    className="MuiTouchRipple-root-13"
+  />
+</button>
+`;
