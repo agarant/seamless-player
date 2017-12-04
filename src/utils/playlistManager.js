@@ -2,6 +2,7 @@ import spotify from "./spotify";
 import jamendo from "./jamendo";
 import soundcloud from "./soundcloud";
 import uniqId from "uniqid";
+import { get, put, remove } from "./storage";
 
 export const API_LIST = {
   SPOTIFY: "spotify",
@@ -17,12 +18,9 @@ const apiList = {
 
 const PLAYLISTS = "playlists";
 
-if (!window.localStorage) {
-  window.localStorage = {};
-}
+const playlists = get(PLAYLISTS) ? JSON.parse(get(PLAYLISTS)) : {};
 
 let api = soundcloud;
-window.localStorage.playlists = {};
 
 /**
  * Set the current API used to search song
@@ -46,7 +44,7 @@ function search(query) {
  * @returns {array of Playlist objects}
  */
 function getPlaylists() {
-  return window.localStorage.playlists;
+  return playlists;
 }
 
 /**
@@ -56,9 +54,8 @@ function getPlaylists() {
 function createPlaylist(name) {
   const id = uniqId();
   const newPlaylist = { name, id, songs: [] };
-  const playlists = getPlaylists();
   playlists[id] = newPlaylist;
-  window.localStorage.playlists = playlists;
+  _refreshStorage();
   return newPlaylist;
 }
 
@@ -67,9 +64,8 @@ function createPlaylist(name) {
  * @param id
  */
 function deletePlaylist(id) {
-  const playlists = getPlaylists();
   delete playlists[id];
-  window.localStorage.playlists = playlists;
+  _refreshStorage();
 }
 
 /**
@@ -77,9 +73,8 @@ function deletePlaylist(id) {
  * @param {Song} song
  */
 function addToPlaylist(playlistId, song) {
-  const playlists = getPlaylists();
   playlists[playlistId].songs.push(song);
-  window.localStorage.playlists = playlists;
+  _refreshStorage();
 }
 
 /**
@@ -87,11 +82,14 @@ function addToPlaylist(playlistId, song) {
  * @param {*} songId : the song that should be removed from the playlist
  */
 function removeFromPlaylist(playlistId, songId) {
-  const playlists = getPlaylists();
   playlists[playlistId].songs = playlists[playlistId].songs.filter(
     song => song.id !== songId
   );
-  window.localStorage.playlists = playlists;
+  _refreshStorage();
+}
+
+function _refreshStorage() {
+  put(PLAYLISTS, JSON.stringify(playlists));
 }
 
 export default {
